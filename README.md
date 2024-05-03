@@ -13,3 +13,7 @@ If you want to work on p5play projects offline, then use the offline links in th
 To keep p5play updated for offline use, install [bun](https://bun.sh/) or [npm](https://nodejs.org). Then in the file menu hover over "Terminal" and select "New Terminal". In your p5play project folder run `bun up` or `npm up` to update p5play to the latest version.
 
 You can delete the contents of this file and write your own README describing your project.
+
+# Assets Link
+
+- [Character](https://anokolisa.itch.io/sidescroller-pixelart-sprites-asset-pack-forest-16x16)
