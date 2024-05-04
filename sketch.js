@@ -1,20 +1,22 @@
 let img;
 let player;
 let walls;
+let playerAni;
 
 function preload() {
   img = loadImage('assets/me.jpg');
+  playerAni = loadAnimation('assets/character/idle.png', { frameSize: [64, 64], frames: 4 });
 }
 
 function setup() {
   //createCanvas(500, 500);
-  createCanvas(1000, 500);
+  createCanvas(windowWidth, windowHeight);
   game()
 }
 
 function draw() {
   //Telas();
-  clear();
+  //clear();
   background("#6d8b89");
 
   //camera
@@ -31,13 +33,16 @@ function draw() {
   
   if (kb.pressing('space') && player.colliding(walls) ) {
     player.vel.y = -5
+  } else if(player.colliding(walls)) {
+    player.vel.y = 0
   }
 }
 
 function game() {
   world.gravity.y = 10;
-  player = new Sprite(100, 100, 32, 33);
-  player.color = "red";
+  player = new Sprite();
+  player.addAni(playerAni);
+  player.scale = 2
 
   //mapa
   walls = new Group()
@@ -51,7 +56,7 @@ function game() {
       '======================'
     ],
     0,
-    500,
+    700,
     walls.w,
     walls.h
   )
