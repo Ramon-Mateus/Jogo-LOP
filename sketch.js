@@ -2,13 +2,16 @@ let img;
 let player;
 let walls;
 let playerAni;
+let playerRun;
 
 // Constantes
 const playerScale = 2
 
 function preload() {
   img = loadImage('assets/me.jpg');
-  playerAni = loadAnimation('assets/character/idle.png', { frameSize: [64, 64], frames: 4 });
+  playerIdle = loadAnimation('idle', 'assets/character/idle.png', { frameSize: [64, 64], frames: 4 });
+  playerRun = loadAnimation('run', 'assets/character/run.png', { frameSize: [80, 80], frames: 8 });
+  //playerJump = loadAnimation('jump', 'assets/character/jump.png', { frameSize: [80, 80], frames: 15 });
 }
 
 function setup() {
@@ -31,11 +34,15 @@ function draw() {
   if(kb.pressing('a')){
     player.x -= 5
     player.scale.x = -playerScale
+    player.changeAni('run');
   } else if (kb.pressing('d')) {
     player.x += 5
     player.scale.x = playerScale
+    player.changeAni('run');
+  } else {
+    player.changeAni('idle');
   }
-  
+
   if (kb.pressing('space') && player.colliding(walls) ) {
     player.vel.y = -5
   } else if(player.colliding(walls)) {
@@ -44,10 +51,13 @@ function draw() {
 }
 
 function game() {
-  world.gravity.y = 10;
+  world.gravity.y = 12;
   player = new Sprite();
-  player.addAni(playerAni);
+  player.addAni(playerIdle);
+  player.addAni(playerRun);
+  //player.addAni(playerJump);
   player.scale = playerScale
+  player.rotationLock = true
 
   //mapa
   walls = new Group()
