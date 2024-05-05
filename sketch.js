@@ -3,6 +3,9 @@ let player;
 let walls;
 let playerAni;
 
+// Constantes
+const playerScale = 2
+
 function preload() {
   img = loadImage('assets/me.jpg');
   playerAni = loadAnimation('assets/character/idle.png', { frameSize: [64, 64], frames: 4 });
@@ -27,8 +30,10 @@ function draw() {
   // moving keys
   if(kb.pressing('a')){
     player.x -= 5
+    player.scale.x = -playerScale
   } else if (kb.pressing('d')) {
     player.x += 5
+    player.scale.x = playerScale
   }
   
   if (kb.pressing('space') && player.colliding(walls) ) {
@@ -42,7 +47,7 @@ function game() {
   world.gravity.y = 10;
   player = new Sprite();
   player.addAni(playerAni);
-  player.scale = 2
+  player.scale = playerScale
 
   //mapa
   walls = new Group()
