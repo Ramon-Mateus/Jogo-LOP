@@ -3,6 +3,8 @@ let player;
 let walls;
 let playerAni;
 let playerRun;
+let bg;
+let grassSheet;
 
 // Constantes
 const playerScale = 2
@@ -11,6 +13,8 @@ function preload() {
   img = loadImage('assets/me.jpg');
   playerIdle = loadAnimation('idle', 'assets/character/idle.png', { frameSize: [64, 64], frames: 4 });
   playerRun = loadAnimation('run', 'assets/character/run.png', { frameSize: [80, 80], frames: 8 });
+  bg = loadImage('assets/background.png')
+  //grassSheet = loadImage('assets/tiles.png')
   //playerJump = loadAnimation('jump', 'assets/character/jump.png', { frameSize: [80, 80], frames: 15 });
 }
 
@@ -23,7 +27,7 @@ function setup() {
 function draw() {
   //Telas();
   //clear();
-  background("#6d8b89");
+  background(bg);
 
   //camera
   //camera.zoom = 2;
@@ -51,26 +55,34 @@ function draw() {
 }
 
 function game() {
+  allSprites.pixelPerfect = true;
   world.gravity.y = 12;
-  player = new Sprite();
+  player = new Sprite(10, 10);
   player.addAni(playerIdle);
   player.addAni(playerRun);
   //player.addAni(playerJump);
   player.scale = playerScale
-  player.rotationLock = true
+  player.rotationLock = true;
 
   //mapa
-  walls = new Group()
-  walls.w = 50
-  walls.h = 50
-  walls.tile = "="
-  walls.collider = 'static'
+  walls = new Group();
+  walls.w = 50;
+  walls.h = 50;
+  walls.tile = "=";
+  walls.collider = 'static';
+
+  /*grass = new Group();
+  grass.collider = 'static';
+  grass.spriteSheet = grassSheet;
+  grass.addAni({ w:8, h:8, row: 0, col: 1 });
+  grass.tile = "g";
+  grass.scale = 1;*/
 
   new Tiles(
     [  
       '======================'
     ],
-    0,
+    10,
     700,
     walls.w,
     walls.h
