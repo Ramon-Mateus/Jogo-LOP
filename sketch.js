@@ -16,18 +16,18 @@ function preload() {
   bg = loadImage('assets/background.png')
   grassSheet = loadImage('assets/grama.png')
   playerJump = loadAnimation('jump', 'assets/character/jump.png', { frameSize: [64, 64], frames: 15 });
-  playerJump.frameDelay = 5; q
+  playerJump.frameDelay = 4;
 }
 
 function setup() {
   //createCanvas(500, 500);
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth/1.4, windowHeight/1.4);
   game()
 }
 
 function draw() {
   //Telas();
-  //clear();
+  clear();
   background(bg);
 
   //camera
@@ -50,22 +50,32 @@ function draw() {
 
   if (kb.pressing('space') && (player.colliding(walls) || player.colliding(grass))) {
     player.vel.y = -5
+
   } else if(player.colliding(walls) || player.colliding(grass)) {
     player.vel.y = 0
+    console.log("colidindo")
   } else {
     player.changeAni('jump');
+  }
+
+  if(player.colliding(end)) {
+    player.x = 50;
+    player.y = 500;
   }
 }
 
 function game() {
   allSprites.pixelPerfect = true;
   world.gravity.y = 10;
-  player = new Sprite(10, 10);
+  player = new Sprite(50, 500);
   player.addAni(playerIdle);
   player.addAni(playerRun);
   player.addAni(playerJump);
   player.scale = playerScale
   player.rotationLock = true;
+  player.removeColliders();
+  //player.debug = true;
+  player.addCollider(0, 0, 40, 125)
 
   //mapa
   walls = new Group();
@@ -79,16 +89,37 @@ function game() {
   grass.spriteSheet = grassSheet;
   grass.addAni({ w:50, h:50});
   grass.tile = "g";
-  grass.scale = 1;*/
+
+  end = new Group();
+  end.collider = 'static'
+  end.w = 50;
+  end.h = 50
+  end.tile = "%"
 
   new Tiles(
     [  
-      'gggggggggggggggg.....=========',
-      ''
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      'gggggggggggg.....ggggggggggggg',
+      'g............................g',
+      'g............................g',
+      'g............................g',
+      '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
     ],
-    10,
-    700,
-    walls.w,
-    walls.h
+    -30,
+    0,
+    end.w,
+    end.h
   )
 }
