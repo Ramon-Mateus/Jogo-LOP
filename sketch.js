@@ -12,10 +12,11 @@ const playerScale = 2
 function preload() {
   img = loadImage('assets/me.jpg');
   playerIdle = loadAnimation('idle', 'assets/character/idle.png', { frameSize: [64, 64], frames: 4 });
-  playerRun = loadAnimation('run', 'assets/character/run.png', { frameSize: [80, 80], frames: 8 });
+  playerRun = loadAnimation('run', 'assets/character/run.png', { frameSize: [80, 80], frames: 8 }); // PORQUE BUGA COM 64 X 64 ?????????
   bg = loadImage('assets/background.png')
-  //grassSheet = loadImage('assets/tiles.png')
-  //playerJump = loadAnimation('jump', 'assets/character/jump.png', { frameSize: [80, 80], frames: 15 });
+  grassSheet = loadImage('assets/grama.png')
+  playerJump = loadAnimation('jump', 'assets/character/jump.png', { frameSize: [64, 64], frames: 15 });
+  playerJump.frameDelay = 5; q
 }
 
 function setup() {
@@ -47,20 +48,22 @@ function draw() {
     player.changeAni('idle');
   }
 
-  if (kb.pressing('space') && player.colliding(walls) ) {
+  if (kb.pressing('space') && (player.colliding(walls) || player.colliding(grass))) {
     player.vel.y = -5
-  } else if(player.colliding(walls)) {
+  } else if(player.colliding(walls) || player.colliding(grass)) {
     player.vel.y = 0
+  } else {
+    player.changeAni('jump');
   }
 }
 
 function game() {
   allSprites.pixelPerfect = true;
-  world.gravity.y = 12;
+  world.gravity.y = 10;
   player = new Sprite(10, 10);
   player.addAni(playerIdle);
   player.addAni(playerRun);
-  //player.addAni(playerJump);
+  player.addAni(playerJump);
   player.scale = playerScale
   player.rotationLock = true;
 
@@ -71,16 +74,17 @@ function game() {
   walls.tile = "=";
   walls.collider = 'static';
 
-  /*grass = new Group();
+  grass = new Group();
   grass.collider = 'static';
   grass.spriteSheet = grassSheet;
-  grass.addAni({ w:8, h:8, row: 0, col: 1 });
+  grass.addAni({ w:50, h:50});
   grass.tile = "g";
   grass.scale = 1;*/
 
   new Tiles(
     [  
-      '======================'
+      'gggggggggggggggg.....=========',
+      ''
     ],
     10,
     700,
