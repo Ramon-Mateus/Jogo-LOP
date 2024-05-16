@@ -54,10 +54,10 @@ function draw() {
     player.changeAni('idle');
   }
 
-  if (kb.pressing('space') && (player.colliding(walls) || player.colliding(grass))) {
+  if (kb.pressing('space') && (player.colliding(walls) || player.colliding(grass) || player.colliding(FloorFal))) {
     player.vel.y = -5;
 
-  } else if(player.colliding(walls) || player.colliding(grass)) {
+  } else if(player.colliding(walls) || player.colliding(grass) || player.colliding(FloorFal)) {
     player.vel.y = 0;
   } else {
     player.changeAni('jump');
@@ -81,6 +81,12 @@ function draw() {
     }
   }
 
+  if(player.colliding(FloorFal)) {
+    setTimeout(() => {
+      FloorFal.collider = 'dynamic';
+    }, 2000);
+  }
+
   text("Mortes: " + mortes, 30, 40);
   text("Pontos: " + pontos, 30, 70);
 }
@@ -101,7 +107,7 @@ function FirstLevel() {
       '=.......................................................#..........',
       '=.......................................................#..........',
       '=.......................c...c.........................p.#..........',
-      '=ggggggggggg.....gggggggggggggggggggggggggggggggggggggggggggggggggg',
+      '=ggggggggggg.....ggggggggggggggggg.f......ggggggggggggggggggggggggg',
       '=..................................................................',
       '=..................................................................',
       '=..................................................................',

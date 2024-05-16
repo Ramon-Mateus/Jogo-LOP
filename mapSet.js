@@ -53,4 +53,10 @@ function mapSet() {
     coins.w = 50;
     coins.h = 50;
     coins.tile = "c";
+
+    FloorFal = new Group();
+    FloorFal.collider = 'static';
+    FloorFal.w = 100;
+    FloorFal.h = 5;
+    FloorFal.tile = 'f'
   }
