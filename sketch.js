@@ -9,9 +9,8 @@ let grassSheet;
 //let bgSong;
 let tileMap;
 let placaSheet;
-
-// Constantes
-const playerScale = 1;
+let mortes = 0;
+let pontos = 0;
 
 function preload() {
   img = loadImage('assets/me.jpg');
@@ -67,11 +66,23 @@ function draw() {
   if(player.colliding(end)) {
     player.x = 50;
     player.y = 500;
+    mortes++;
   }
 
   if(player.colliding(tl)) {
     LevelTwo();
   }
+
+  for (let i = 0; i < coins.length; i++) {
+    if (player.collide(coins[i])) {
+        coins[i].remove();
+        pontos++;
+        break;
+    }
+  }
+
+  text("Mortes: " + mortes, 30, 40);
+  text("Pontos: " + pontos, 30, 70);
 }
 
 function FirstLevel() {
@@ -89,7 +100,7 @@ function FirstLevel() {
       '=.......................................................#..........',
       '=.......................................................#..........',
       '=.......................................................#..........',
-      '=.....................................................p.#..........',
+      '=.......................c...c.........................p.#..........',
       '=ggggggggggg.....gggggggggggggggggggggggggggggggggggggggggggggggggg',
       '=..................................................................',
       '=..................................................................',
@@ -138,66 +149,4 @@ function LevelTwo() {
   )
 
   playerSet();
-}
-
-function playerSet() {
-  player = new Sprite(50, 500);
-  player.addAni(playerIdle);
-  player.addAni(playerRun);
-  player.addAni(playerJump);
-  player.scale = playerScale
-  player.rotationLock = true;
-  player.removeColliders();
-  //player.debug = true;
-  player.addCollider(0, 0, 30, 60);
-}
-
-function mapSet() {
-  allSprites.pixelPerfect = true;
-  world.gravity.y = 10;
-
-  //mapa
-  walls = new Group();
-  walls.w = 50;
-  walls.h = 50;
-  walls.color = color(0, 0, 0, 0);
-  walls.draw = function() {
-    noStroke();
-  }
-  walls.tile = "=";
-  walls.collider = 'static';
-
-  grass = new Group();
-  grass.collider = 'static';
-  grass.spriteSheet = grassSheet;
-  grass.addAni({ w:50, h:50});
-  grass.tile = "g";
-
-  placa = new Group();
-  placa.collider = 'none';
-  placa.spriteSheet = placaSheet;
-  placa.addAni({ w:512, h:512});
-  placa.scale = 0.1;
-  placa.tile = "p";
-
-
-  end = new Group();
-  end.collider = 'static'
-  end.color = color(0, 0, 0, 0);
-  end.draw = function() {
-    noStroke();
-  }
-  end.w = 50;
-  end.h = 50;
-  end.tile = "%";
-
-  tl = new Group();
-  tl.collider = 'static';
-  tl.color = color(0, 0, 0, 0);
-  tl.draw = function() {
-    noStroke();
-  }
-  tl.w = 50;
-  tl.h = 50;
-  tl.tile = "#";
 }
