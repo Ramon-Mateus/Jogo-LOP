@@ -11,6 +11,8 @@ let tileMap;
 let placaSheet;
 let mortes = 0;
 let pontos = 0;
+let fx = [];
+let fy = [];
 
 function preload() {
   img = loadImage('assets/me.jpg');
@@ -81,10 +83,21 @@ function draw() {
     }
   }
 
-  if(player.colliding(FloorFal)) {
-    setTimeout(() => {
-      FloorFal.collider = 'dynamic';
-    }, 2000);
+  for (let l = 0; l < FloorFal.length; l++) {
+    if (player.collide(FloorFal[l])) {
+      fx[l] = FloorFal[l].x;
+      fy[l] = FloorFal[l].y;
+        setTimeout(() => {
+          FloorFal[l].collider = 'dynamic';
+        }, 2000);
+        break;
+    } else if (FloorFal[l].overlap(end)) {
+      setTimeout(() => {
+        FloorFal[l].position.x = fx[l];
+        FloorFal[l].position.y = fy[l];
+        FloorFal[l].collider = 'static';
+      }, 1000);
+    }
   }
 
   text("Mortes: " + mortes, 30, 40);
@@ -107,7 +120,7 @@ function FirstLevel() {
       '=.......................................................#..........',
       '=.......................................................#..........',
       '=.......................c...c.........................p.#..........',
-      '=ggggggggggg.....ggggggggggggggggg.f......ggggggggggggggggggggggggg',
+      '=ggggggggggg.....ggggggggggggggggg...f...f....ggggggggggggggggggggg',
       '=..................................................................',
       '=..................................................................',
       '=..................................................................',
