@@ -50,12 +50,17 @@ function mapSet() {
 
     coins = new Group();
     coins.collider = 'static';
+    coins.spriteSheet = coinSheet;
+    coins.addAni({ w:512, h:512});
+    coins.scale = 0.1;
     coins.w = 50;
     coins.h = 50;
     coins.tile = "c";
 
     FloorFal = new Group();
     FloorFal.collider = 'static';
+    FloorFal.rotationLock = true;
+    FloorFal.falling = false;
     FloorFal.w = 100;
     FloorFal.h = 5;
     FloorFal.tile = 'f'
