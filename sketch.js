@@ -6,6 +6,7 @@ let playerAni;
 let playerRun;
 let bg;
 let grassSheet;
+let areiaSheet;
 //let bgSong;
 let tileMap;
 let placaSheet;
@@ -23,6 +24,7 @@ function preload() {
   playerRun = loadAnimation('run', 'assets/character/run.png', { frameSize: [80, 80], frames: 8 }); // PORQUE BUGA COM 64 X 64 ?????????
   bg = loadImage('assets/background.png');
   grassSheet = loadImage('assets/grama.png');
+  areiaSheet = loadImage('assets/areia.png');
   placaSheet = loadImage('assets/placa.png');
   coinSheet = loadImage('assets/coin.png');
   playerJump = loadAnimation('jump', 'assets/character/jump.png', { frameSize: [64, 64], frames: 15 });
@@ -143,9 +145,9 @@ function FirstLevel() {
       '=...........................cc.........................c.c......c..........#..........',
       '=........c...........c..c.......c................c......................p..#..........',
       '=ggggggggggg.....ggggggggggggggggg....f....f...ggggggggggggggggggggggggggggggggggggggg',
-      '=.....................................................................................',
-      '=.....................................................................................',
-      '=.....................................................................................',
+      '=aaaaaaaaaaa.....aaaaaaaaaaaaaaaaa.............aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      '=aaaaaaaaaaa.....aaaaaaaaaaaaaaaaa.............aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      '=aaaaaaaaaaa.....aaaaaaaaaaaaaaaaa.............aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
     ],
     -30,
@@ -172,14 +174,14 @@ function LevelTwo() {
       '=....................................................................#',
       '=...........................................cc.......................#',
       '=..........................................gggg......................#',
-      '=.....................................f....gggg......................#',
-      '=................................f...................................#',
-      '=.......c.c.c...............f........................................#',
-      '=................ggg...f.............................................#',
-      '=ggggggggggggggggggg.................................gggggggggggggggg#',
-      '=....................................................................#',
-      '=....................................................................#',
-      '=....................................................................#',
+      '=.....................................f....aaaa......................#',
+      '=................................f.........aaaa......................#',
+      '=.......c.c.c...............f..............aaaa......................#',
+      '=................ggg...f...................aaaa......................#',
+      '=ggggggggggggggggaaa.......................aaaa......gggggggggggggggg#',
+      '=aaaaaaaaaaaaaaaaaaa.......................aaaa......aaaaaaaaaaaaaaaa#',
+      '=aaaaaaaaaaaaaaaaaaa.......................aaaa......aaaaaaaaaaaaaaaa#',
+      '=aaaaaaaaaaaaaaaaaaa.......................aaaa......aaaaaaaaaaaaaaaa#',
       '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
     ],
     -30,

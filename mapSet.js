@@ -19,6 +19,12 @@ function mapSet() {
     grass.spriteSheet = grassSheet;
     grass.addAni({ w:50, h:50});
     grass.tile = "g";
+
+    areia = new Group();
+    areia.collider = 'static';
+    areia.spriteSheet = areiaSheet;
+    areia.addAni({ w:50, h:50});
+    areia.tile = "a";
   
     placa = new Group();
     placa.collider = 'none';
