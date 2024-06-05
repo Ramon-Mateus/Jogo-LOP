@@ -10,10 +10,11 @@ let grassSheet;
 let tileMap;
 let placaSheet;
 let coinSheet;
-let mortes = 0;
+let vida = 3;
 let pontos = 0;
 let fx = [];
 let fy = [];
+let showGameOver = false;
 
 function preload() {
   img = loadImage('assets/me.jpg');
@@ -70,7 +71,21 @@ function draw() {
   if(player.colliding(end)) {
     player.x = 50;
     player.y = 500;
-    mortes++;
+    vida--;
+    if(vida === 0) {
+      player.remove();
+      vida = 3;
+      pontos = 0;
+      tileMap.remove();
+      FirstLevel();
+      showGameOver = true;
+      gameOverTimer = millis();
+    }
+  }
+
+  if (showGameOver) {
+    text('Game Over - Jogo resetado', width / 2 - 150, 100);
+    if (millis() - gameOverTimer > 2000) showGameOver = false;
   }
 
   if(player.colliding(tl)) {
@@ -106,11 +121,12 @@ function draw() {
     }
   }
 
-  text("Mortes: " + mortes, 30, 40);
+  text("Vidas: " + vida, 30, 40);
   text("Pontos: " + pontos, 30, 70);
 }
 
 function FirstLevel() {
+  clear();
   tileMap = new Tiles(
     [  
       '=..........................................................................#..........',
