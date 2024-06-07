@@ -7,7 +7,7 @@ let TELA = MENU;
 function Telas() {
   background("#6d8b89");
   rectMode(CENTER);
-  textAlign(CENTER, CENTER)
+  textAlign(CENTER, CENTER);
   if(TELA === GAME) {
     fill("#d5e0b5")
     text('Em construção!', 250, 250);

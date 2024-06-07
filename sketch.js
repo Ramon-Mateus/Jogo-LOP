@@ -32,99 +32,104 @@ function preload() {
 }
 
 function setup() {
-  //createCanvas(500, 500);
   createCanvas(windowWidth/1.4, windowHeight/1.4);
-  mapSet();
-  FirstLevel();
+  if(TELA === GAME) {
+    mapSet();
+    FirstLevel();
+  }
 }
 
 function draw() {
-  //Telas();
-  clear();
-  background(bg);
+  if(TELA === GAME) {
+    clear();
+    background(bg);
 
-  //camera
-  camera.zoom = 2;
-  camera.x = player.x;
-  camera.y = player.y;
+    //camera
+    camera.zoom = 2;
+    camera.x = player.x;
+    camera.y = player.y;
 
-  // moving keys
-  if(kb.pressing('a')){
-    player.x -= 5;
-    player.scale.x = -playerScale;
-    player.changeAni('run');
-  } else if (kb.pressing('d')) {
-    player.x += 5;
-    player.scale.x = playerScale;
-    player.changeAni('run');
-  } else {
-    player.changeAni('idle');
-  }
-
-  if (kb.pressing('space') && (player.colliding(walls) || player.colliding(grass) || player.colliding(FloorFal))) {
-    player.vel.y = -5;
-
-  } else if(player.colliding(walls) || player.colliding(grass) || player.colliding(FloorFal)) {
-    player.vel.y = 0;
-  } else {
-    player.changeAni('jump');
-  }
-
-  if(player.colliding(end)) {
-    player.x = 50;
-    player.y = 500;
-    vida--;
-    if(vida === 0) {
-      player.remove();
-      vida = 3;
-      pontos = 0;
-      tileMap.remove();
-      FirstLevel();
-      showGameOver = true;
-      gameOverTimer = millis();
+    // moving keys
+    if(kb.pressing('a')){
+      player.x -= 5;
+      player.scale.x = -playerScale;
+      player.changeAni('run');
+    } else if (kb.pressing('d')) {
+      player.x += 5;
+      player.scale.x = playerScale;
+      player.changeAni('run');
+    } else {
+      player.changeAni('idle');
     }
-  }
 
-  if (showGameOver) {
-    text('Game Over - Jogo resetado', width / 2 - 150, 100);
-    if (millis() - gameOverTimer > 2000) showGameOver = false;
-  }
+    if (kb.pressing('space') && (player.colliding(walls) || player.colliding(grass) || player.colliding(FloorFal))) {
+      player.vel.y = -5;
 
-  if(player.colliding(tl)) {
-    LevelTwo();
-  }
+    } else if(player.colliding(walls) || player.colliding(grass) || player.colliding(FloorFal)) {
+      player.vel.y = 0;
+    } else {
+      player.changeAni('jump');
+    }
 
-  for (let i = 0; i < coins.length; i++) {
-    if (player.collide(coins[i])) {
-        coins[i].remove();
-        pontos++;
+    if(player.colliding(end)) {
+      player.x = 50;
+      player.y = 500;
+      vida--;
+      if(vida === 0) {
+        player.remove();
+        vida = 3;
+        pontos = 0;
+        tileMap.remove();
+        FirstLevel();
+        showGameOver = true;
+        gameOverTimer = millis();
+      }
+    }
+
+    if (showGameOver) {
+      text('Game Over - Jogo resetado', width / 2 - 150, 100);
+      if (millis() - gameOverTimer > 2000) showGameOver = false;
+    }
+
+    if(player.colliding(tl)) {
+      LevelTwo();
+    }
+
+    for (let i = 0; i < coins.length; i++) {
+      if (player.collide(coins[i])) {
+          coins[i].remove();
+          pontos++;
+          break;
+      }
+    }
+
+    for (let l = 0; l < FloorFal.length; l++) {
+      if (player.collide(FloorFal[l]) && FloorFal[l].collider !== "dynamic" && !FloorFal[l].falling) {
+        fx[l] = FloorFal[l].x;
+        fy[l] = FloorFal[l].y;
+        FloorFal[l].falling = true;
+        setTimeout(() => {
+          FloorFal[l].collider = 'dynamic';
+        }, 300);
         break;
+      } else if (FloorFal[l].overlap(end)) {
+        setTimeout(() => {
+          FloorFal[l].position.x = fx[l];
+          FloorFal[l].position.y = fy[l];
+          FloorFal[l].collider = 'static';
+          FloorFal[l].falling = false;
+          FloorFal[l].rotation = 0;
+          FloorFal[l].rotationSpeed = 0;
+        }, 1000);
+      }
     }
-  }
 
-  for (let l = 0; l < FloorFal.length; l++) {
-    if (player.collide(FloorFal[l]) && FloorFal[l].collider !== "dynamic" && !FloorFal[l].falling) {
-      fx[l] = FloorFal[l].x;
-      fy[l] = FloorFal[l].y;
-      FloorFal[l].falling = true;
-      setTimeout(() => {
-        FloorFal[l].collider = 'dynamic';
-      }, 300);
-      break;
-    } else if (FloorFal[l].overlap(end)) {
-      setTimeout(() => {
-        FloorFal[l].position.x = fx[l];
-        FloorFal[l].position.y = fy[l];
-        FloorFal[l].collider = 'static';
-        FloorFal[l].falling = false;
-        FloorFal[l].rotation = 0;
-        FloorFal[l].rotationSpeed = 0;
-      }, 1000);
-    }
+    fill(0)
+    text("Vidas: " + vida, 50, 40);
+    text("Pontos: " + pontos, 57, 70);
+  } else {
+    Telas();
   }
-
-  text("Vidas: " + vida, 30, 40);
-  text("Pontos: " + pontos, 30, 70);
 }
 
 function FirstLevel() {

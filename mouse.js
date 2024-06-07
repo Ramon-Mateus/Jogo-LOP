@@ -2,6 +2,7 @@ function mouseClicked() {
     if(mouseX >= 175 && mouseX <= 325 && mouseY >= 185 && mouseY <= 232) {
       if(TELA === MENU) {
         TELA = GAME;
+        setup()
       }
     } else if (mouseX >= 175 && mouseX <= 325 && mouseY >= 247 && mouseY <= 292) {
       if(TELA === MENU) {
