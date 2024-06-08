@@ -14,19 +14,25 @@ function Telas() {
     fill("#d5e0b5")
     rect(50, 50, 30, 30, 5);
     text("Desenvolvido por: \nRamon de Oliveira Araújo Mateus\nramon.mateus.017@ufrn.edu.br", width/2 - 50, height/2 - 50);
-    text("Ideia: Jogo de plataforma", width/2 - 50, height + 50);
+    text("Ideia: Jogo de plataforma", width/2 - 50, height/2 + 50);
     fill("#47667b")
     text("<", 50, 50)
     image(img, width/2 - 110, 85, 120, 120);
   } else if (TELA === CONTROLS) {
     fill("#d5e0b5")
     rect(50, 50, 30, 30, 5);
-    text("Irá mostrar como os controles funcionam", width/2 - 50, height/2 - 50);
+    fill("#182C39FF")
+    text("Botões do teclado:", width/2 - 50, height/2 - 100);
+    fill("#d5e0b5")
+    text("A: Andar para esquerda", width/2 - 50, height/2 - 50);
+    text("D: Andar para direita", width/2 - 50, height/2);
+    text("Space: Pular", width/2 - 50, height/2 + 50);
     fill("#47667b")
     text("<", 50, 50)
   } else {
     fill("#d5e0b5")
-    text("Nome do jogo", width/2 - 50, 100)
+    textSize(35)
+    text("Lone Fighter", width/2 - 50, 100)
     rect(width/2 - 50, 210, 150, 45, 15);
     rect(width/2 - 50, 270, 150, 45, 15);
     rect(width/2 - 50, 330, 150, 45, 15);

@@ -126,7 +126,7 @@ function draw() {
 
     fill(0)
     text("Vidas: " + vida, 50, 40);
-    text("Pontos: " + pontos, 57, 70);
+    text("Pontos: " + pontos, 57.5, 70);
   } else {
     Telas();
   }
