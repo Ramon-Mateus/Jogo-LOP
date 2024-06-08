@@ -26,14 +26,41 @@ function mapSet() {
     areia.addAni({ w:50, h:50});
     areia.tile = "a";
   
-    placa = new Group();
-    placa.collider = 'none';
-    placa.spriteSheet = placaSheet;
-    placa.addAni({ w:512, h:512});
-    placa.scale = 0.1;
-    placa.tile = "p";
-  
-  
+    placa2 = new Group();
+    placa2.collider = 'none';
+    placa2.spriteSheet = placa2Sheet;
+    placa2.addAni({ w:512, h:512});
+    placa2.scale = 0.1;
+    placa2.tile = "p";
+
+    placa3 = new Group();
+    placa3.collider = 'none';
+    placa3.spriteSheet = placa3Sheet;
+    placa3.addAni({ w:512, h:512});
+    placa3.scale = 0.1;
+    placa3.tile = "o";
+
+    placa4 = new Group();
+    placa4.collider = 'none';
+    placa4.spriteSheet = placa4Sheet;
+    placa4.addAni({ w:512, h:512});
+    placa4.scale = 0.1;
+    placa4.tile = "i";
+    
+    placaSpace = new Group();
+    placaSpace.collider = 'none';
+    placaSpace.spriteSheet = placaSpaceSheet;
+    placaSpace.addAni({ w:512, h:512});
+    placaSpace.scale = 0.2;
+    placaSpace.tile = "s";
+    
+    end = new Group();
+    end.collider = 'none';
+    end.spriteSheet = endSheet;
+    end.addAni({ w:512, h:512});
+    end.scale = 0.1;
+    end.tile = "e";
+
     end = new Group();
     end.collider = 'static'
     end.color = color(0, 0, 0, 0);

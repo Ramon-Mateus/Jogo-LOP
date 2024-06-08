@@ -9,23 +9,29 @@ let grassSheet;
 let areiaSheet;
 //let bgSong;
 let tileMap;
-let placaSheet;
+let placa2Sheet, placa3Sheet, placa4Sheet, placaSpaceSheet, endSheet;
 let coinSheet;
 let vida = 3;
 let pontos = 0;
 let fx = [];
 let fy = [];
 let showGameOver = false;
+let showGameWin = false;
+let level = 1;
 
 function preload() {
   img = loadImage('assets/me.jpg');
   //bgSong = loadSound('assets/bg.wav');
   playerIdle = loadAnimation('idle', 'assets/character/idle.png', { frameSize: [64, 64], frames: 4 });
-  playerRun = loadAnimation('run', 'assets/character/run.png', { frameSize: [80, 80], frames: 8 }); // PORQUE BUGA COM 64 X 64 ?????????
+  playerRun = loadAnimation('run', 'assets/character/run.png', { frameSize: [80, 80], frames: 8 });
   bg = loadImage('assets/background.png');
   grassSheet = loadImage('assets/grama.png');
   areiaSheet = loadImage('assets/areia.png');
-  placaSheet = loadImage('assets/placa.png');
+  placa2Sheet = loadImage('assets/placa.png');
+  placa3Sheet = loadImage('assets/placa3.png');
+  placa4Sheet = loadImage('assets/placa4.png');
+  placaSpaceSheet = loadImage('assets/placaSpace.png');
+  endSheet = loadImage('assets/end.png');
   coinSheet = loadImage('assets/coin.png');
   playerJump = loadAnimation('jump', 'assets/character/jump.png', { frameSize: [64, 64], frames: 15 });
   playerJump.frameDelay = 4;
@@ -64,7 +70,6 @@ function draw() {
 
     if (kb.pressing('space') && (player.colliding(walls) || player.colliding(grass) || player.colliding(FloorFal))) {
       player.vel.y = -5;
-
     } else if(player.colliding(walls) || player.colliding(grass) || player.colliding(FloorFal)) {
       player.vel.y = 0;
     } else {
@@ -89,10 +94,25 @@ function draw() {
     if (showGameOver) {
       text('Game Over - Jogo resetado', width / 2 - 150, 100);
       if (millis() - gameOverTimer > 2000) showGameOver = false;
+    } 
+
+    if(showGameWin) {
+      text(`Parabéns!!! Jogo zerado\nSua Pontuação: ${pontos}`, width / 2, 100);
     }
 
     if(player.colliding(tl)) {
-      LevelTwo();
+      if(level === 1) {
+        LevelTwo();
+        level = 2;
+      } else if(level === 2) {
+        LevelThree();
+        level = 3;
+      } else if(level === 3){
+        LevelFour();
+        level = 4;
+      } else {
+        showGameWin = true;
+      }
     }
 
     for (let i = 0; i < coins.length; i++) {
@@ -182,12 +202,80 @@ function LevelTwo() {
       '=.....................................f....aaaa......................#',
       '=................................f.........aaaa......................#',
       '=.......c.c.c...............f..............aaaa......................#',
-      '=................ggg...f...................aaaa......................#',
+      '=................ggg...f...................aaaa...........cc......o..#',
       '=ggggggggggggggggaaa.......................aaaa......gggggggggggggggg#',
       '=aaaaaaaaaaaaaaaaaaa.......................aaaa......aaaaaaaaaaaaaaaa#',
       '=aaaaaaaaaaaaaaaaaaa.......................aaaa......aaaaaaaaaaaaaaaa#',
       '=aaaaaaaaaaaaaaaaaaa.......................aaaa......aaaaaaaaaaaaaaaa#',
       '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
+    ],
+    -30,
+    0,
+    end.w,
+    end.h
+  )
+
+  playerSet();
+}
+
+function LevelThree() {
+  clear();
+  player.remove();
+  
+  tileMap.remove();
+  tileMap = new Tiles(
+    [
+      '=................................................................................#',
+      '=................................................................................#',
+      '=................................................................................#',
+      '=................................................................................#',
+      '=................................................................................#',
+      '=................................................................................#',
+      '=.....................................................ccccccc.............c...i..#',
+      '=...................................................gggggggggg......ggggggggggggg#',
+      '=...................................................aaaaa.........ggaaaaaaaaaaaaa#',
+      '=..............................................................gggaaaaaaaaaaaaaaa#',
+      '=..............c...........................................ggggaaaaaaaaaaaaaaaaaa#',
+      '=.....c......c...c...............................f..gggggggaaaaaaaaaaaaaaaaaaaaaa#',
+      '=gggggggg...ggggggg....f.....................f......aaaaaaaaaaaaaaaaaaaaaaaaaaaaa#',
+      '=aaaaaaaa...aaaaaaa........f............f...........aaaaaaaaaaaaaaaaaaaaaaaaaaaaa#',
+      '=aaaaaaaa...aaaaaaa............f...f................aaaaaaaaaaaaaaaaaaaaaaaaaaaaa#',
+      '=aaaaaaaa...aaaaaaa.................................aaaaaaaaaaaaaaaaaaaaaaaaaaaaa#',
+      '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
+    ],
+    -30,
+    0,
+    end.w,
+    end.h
+  )
+
+  playerSet();
+}
+
+function LevelFour () {
+  clear();
+  player.remove();
+  
+  tileMap.remove();
+  tileMap = new Tiles(
+    [
+      '=..............................................................................#...',
+      '=..............................................................................#...',
+      '=..............................................................................#...',
+      '=..............................................................................#...',
+      '=..............................................................................#...',
+      '=........................................................g.....................#...',
+      '=.......g....g...........................................g.....................#...',
+      '=.......g....agg.........................................g.....................#...',
+      '=.......g....aaagg.......................................g.....................#...',
+      '=.......g....aaaaagg...c.................................g.....................#...',
+      '=.......g....aaaaaaagg......c.....................ccc....g....................e#...',
+      '=.....s.g....aaaaaaaaaggggggggggg....f.....f....gggggggggg........ggggggggggggggggg',
+      '=gggggggg....aaaaaaaaaaaaaaaaaaaa...............aaaaaaaaaa........aaaaaaaaaaaaaaaaa',
+      '=aaaaaaaa....aaaaaaaaaaaaaaaaaaaa...............aaaaaaaaaa........aaaaaaaaaaaaaaaaa',
+      '=aaaaaaaa....aaaaaaaaaaaaaaaaaaaa...............aaaaaaaaaa........aaaaaaaaaaaaaaaaa',
+      '=aaaaaaaa....aaaaaaaaaaaaaaaaaaaa...............aaaaaaaaaa........aaaaaaaaaaaaaaaaa',
+      '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
     ],
     -30,
     0,
