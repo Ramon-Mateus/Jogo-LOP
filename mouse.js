@@ -13,9 +13,7 @@ function mouseClicked() {
         TELA = CREDITS;
       }
     } else if (mouseX >= 30 && mouseX <= 65 && mouseY >= 35 && mouseY <= 65) {
-      if(TELA === GAME) {
-        TELA = MENU;
-      } else if(TELA === CONTROLS) {
+      if(TELA === CONTROLS) {
         TELA = MENU;
       } else if(TELA === CREDITS) {
         TELA = MENU;
