@@ -8,13 +8,11 @@ function Telas() {
   background("#6d8b89");
   rectMode(CENTER);
   textAlign(CENTER, CENTER);
-  if(TELA === GAME) {
-    text("<", 50, 50) // COLOCAR ISSO NA TELA DO GAME
-  } else if (TELA === CREDITS) {
+  if (TELA === CREDITS) {
     fill("#d5e0b5")
     rect(50, 50, 30, 30, 5);
     text("Desenvolvido por: \nRamon de Oliveira Araújo Mateus\nramon.mateus.017@ufrn.edu.br", width/2 - 50, height/2 - 50);
-    text("Ideia: Jogo de plataforma", width/2 - 50, height/2 + 50);
+    text("Gênero: Jogo de plataforma - Roguelike", width/2 - 50, height/2 + 50);
     fill("#47667b")
     text("<", 50, 50)
     image(img, width/2 - 110, 85, 120, 120);
@@ -27,6 +25,7 @@ function Telas() {
     text("A: Andar para esquerda", width/2 - 50, height/2 - 50);
     text("D: Andar para direita", width/2 - 50, height/2);
     text("Space: Pular", width/2 - 50, height/2 + 50);
+    text("Hold Space: Na fase 4, segure o espaço colado na\nparede para conseguir escalar ela", width/2 - 50, height/2 + 100);
     fill("#47667b")
     text("<", 50, 50)
   } else {
